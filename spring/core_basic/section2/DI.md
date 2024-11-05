@@ -90,7 +90,7 @@ public class OrderServiceImpl implements OrderService {
 - 공연 기획자의 역할이 필요하다.
 
 `AppConfig`
-- AppConfig를 만들어 구현 객체를 생성하고 연결하는 책임을 갖다록 하자
+- AppConfig를 만들어 구현 객체를 생성하고 연결하는 책임을 부여하자
 ~~~ java
 
 public class AppConfig {
