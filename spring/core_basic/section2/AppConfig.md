@@ -1,4 +1,4 @@
-## 외부에서 주입(DI)
+## AppConfig
 ### 1. 할인정책
 1. 기본 정책은 고정 할인이지만 추후 변경될 수 있다.
 2. 이에 맞게 인터페이스를 설계하자
@@ -119,3 +119,48 @@ public class MemberServiceImpl implements MemberService{
 - Service는 구현이 아닌 추상(interface)에 의존
 - 생성자를 통해 어떤 객체가 들어오는지 알 수 없다.
 - 어떤 객체를 넣어줄지는 AppConfig에서 알 수 있다.
+
+## 4. AppConfig 리팩토링
+![alt text](../../img/spring/appconfigrefactor.png )
+~~~ java
+public class AppConfig {
+     public MemberService memberService() {
+         return new MemberServiceImpl(new MemoryMemberRepository());
+   }
+     public OrderService orderService() {
+         return new OrderServiceImpl(
+                 new MemoryMemberRepository(),
+                 new FixDiscountPolicy());
+   }
+ }
+~~~
+`문제점`
+- 코드를 보면 그림과 같이 역할에 따른 구현이 잘 보이지 않는다.
+- 또한 중복코드도 존재한다.
+- 중복을 제거하고 역할에 따른 구현을 보이도록 리팩토링 해보자
+- 리팩토링
+   ~~~java
+   public class AppConfig {
+   
+      public MemberService memberService() {
+         // 생성자 주입
+         return new MemberServiceImpl(memberRepository());
+      }
+   
+      public OrderService orderService() {
+         // 생성자 주입
+         return new OrderServiceImpl(memberRepository(), discountPolicy());
+      }
+   
+      private MemoryMemberRepository memberRepository() {
+         return new MemoryMemberRepository();
+      }
+   
+      public DiscountPolicy discountPolicy() {
+   //        return new FixDiscountPolicy();
+         return new RateDiscountPolicy();
+      }
+   
+   }
+   ~~~
+  -> 중복이 제거 되었고, 각 메소드들의 역할들이 분명히 보인다.
