@@ -56,3 +56,7 @@ LocalTime parsedTime = LocalTime.parse("14:30:15); // 문자열 파싱
   - minusHour(5)
   - toLocalDate(): LocalDate로 변환
   - toLocalTime: LocalTime으로 변환
+
+`Epoch`
+- 컴퓨터 시스템에서 시간의 기준점을 의미
+- **"1970년 1월 1일 00:00:00 UTC"**로 정의

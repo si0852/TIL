@@ -19,5 +19,6 @@ public interface Collection<E> extends Iterable<E>
 | 리턴 타입          | 메소드 이름 및 매개 변수 |
 |----------------|----------------|
 | Iterator < T > | iterator()     |
+
 -> Collection 인터페이스는 Iterable 인터페이스를 확장했다. 
 이 의미는 Iterator 인터페이스를 사용하여 데이터를 순차적으로 가져올 수 있다.
